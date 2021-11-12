@@ -52,5 +52,13 @@
             target.x = Mathf.Clamp(target.x, boundsMin.x, boundsMax.x);
             target.z = Mathf.Clamp(target.z, boundsMin.y, boundsMax.y);
         }
+
+        public Vector3 GetPredictedPosition(float frames)
+        {
+            var direction = (target - transform.position).normalized;
+            Vector3 predictedPosition = transform.position + direction * speed * Time.deltaTime * frames; //we assume a constant framerate
+
+            return predictedPosition;
+        }
     }
 }

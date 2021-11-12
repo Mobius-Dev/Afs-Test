@@ -188,11 +188,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c54f64cb5592f4594c4838fac66bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7251337396528109554, guid: bf11f6354539ac0438eed729f7a562e6,
+  bulletPrefab: {fileID: 9202717447597622541, guid: 9f29516873bf8584195364141e09e760,
     type: 3}
   bulletSpawnPoint: {fileID: 7675413413848982683}
-  firingRate: 2
-  firingRange: 4
+  firingRate: 5
+  firingRange: 6
+  burstBullets: 3
+  burstRate: 0.25
+  bulletForce: 1000
+  maxLeadOnTarget: 120
 --- !u!1 &8259680558507855707
 GameObject:
   m_ObjectHideFlags: 0
