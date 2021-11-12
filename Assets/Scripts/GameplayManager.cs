@@ -6,19 +6,19 @@
 
     public class GameplayManager : MonoBehaviour
     {
-        [Header("Prefabs")] 
+        [Header("Prefabs")]
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject towerPrefab;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private Vector2 boundsMin;
         [SerializeField] private Vector2 boundsMax;
         [SerializeField] private float enemySpawnRate;
 
-        [Header("UI")] 
-        [SerializeField] private GameObject enemiesCountText;
-        [SerializeField] private GameObject scoreText;
-        
+        [Header("UI")]
+        [SerializeField] private TextMeshProUGUI enemiesCountText;
+        [SerializeField] private TextMeshProUGUI scoreText;
+
         private List<Enemy> enemies;
         private float enemySpawnTimer;
         private int score;
@@ -51,14 +51,14 @@
                 }
             }
 
-            scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
-            enemiesCountText.GetComponent<TextMeshProUGUI>().text = "Enemies: " + enemies.Count;
+            scoreText.text = "Score: " + score;
+            enemiesCountText.text = "Enemies: " + enemies.Count;
         }
 
         private void SpawnEnemy()
         {
             var position = new Vector3(Random.Range(boundsMin.x, boundsMax.x), enemyPrefab.transform.position.y, Random.Range(boundsMin.y, boundsMax.y));
-            
+
             var enemy = Instantiate(enemyPrefab, position, Quaternion.identity).GetComponent<Enemy>();
             enemy.OnEnemyDied += Enemy_OnEnemyDied;
             enemy.Initialize(boundsMin, boundsMax);
