@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class SimpleTower : Tower
+    public class AdvancedTower : Tower
     {
         private void Update()
         {

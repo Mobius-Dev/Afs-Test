@@ -8,7 +8,8 @@
     {
         [Header("Prefabs")]
         [SerializeField] private GameObject enemyPrefab;
-        [SerializeField] private GameObject towerPrefab;
+        [SerializeField] private GameObject simpleTowerPrefab;
+        [SerializeField] private GameObject advancedTowerPrefab;
 
         [Header("Settings")]
         [SerializeField] private Vector2 boundsMin;
@@ -16,8 +17,8 @@
         [SerializeField] private float enemySpawnRate;
 
         [Header("UI")]
-        [SerializeField] private TextMeshProUGUI enemiesCountText;
         [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private TextMeshProUGUI enemiesCountText;
 
         private List<Enemy> enemies;
         private float enemySpawnTimer;
@@ -45,9 +46,22 @@
                 if (Physics.Raycast(ray, out var hit, LayerMask.GetMask("Ground")))
                 {
                     var spawnPosition = hit.point;
-                    spawnPosition.y = towerPrefab.transform.position.y;
+                    spawnPosition.y = simpleTowerPrefab.transform.position.y;
 
-                    SpawnTower(spawnPosition);
+                    SpawnTower(spawnPosition, TowerType.Simple);
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out var hit, LayerMask.GetMask("Ground")))
+                {
+                    var spawnPosition = hit.point;
+                    spawnPosition.y = simpleTowerPrefab.transform.position.y;
+
+                    SpawnTower(spawnPosition, TowerType.Advanced);
                 }
             }
 
@@ -72,9 +86,27 @@
             score++;
         }
 
-        private void SpawnTower(Vector3 position)
+        private void SpawnTower(Vector3 position, TowerType type)
         {
-            var tower = Instantiate(towerPrefab, position, Quaternion.identity).GetComponent<SimpleTower>();
+            GameObject newTowerPrefab;
+
+            switch (type)
+            {
+                case TowerType.Simple:
+                    newTowerPrefab = simpleTowerPrefab;
+                    break;
+
+                case TowerType.Advanced:
+                    newTowerPrefab = advancedTowerPrefab;
+                    break;
+
+                default:
+                    newTowerPrefab = simpleTowerPrefab;
+                    break;
+            }
+
+            var tower = Instantiate(newTowerPrefab, position, Quaternion.identity).GetComponent<Tower>();
+
             tower.Initialize(enemies);
         }
     }

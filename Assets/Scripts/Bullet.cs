@@ -18,7 +18,6 @@
             if (targetObject != null)
             {
                 var direction = (targetObject.transform.position - transform.position).normalized;
-
                 transform.position += direction * speed * Time.deltaTime;
 
                 if ((transform.position - targetObject.transform.position).magnitude <= 0.2f)
@@ -28,7 +27,6 @@
                 }
             }
             else Destroy(gameObject);
-
         }
     }
 }
